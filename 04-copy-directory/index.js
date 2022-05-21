@@ -4,24 +4,24 @@ const path = require('path');
 const dir = path.join(__dirname, 'files');
 const copyDir = path.join(__dirname, 'files-copy');
 
-async function copyFiles() {
+async function copyFiles(fromDir,toDir) {
   try {
-    await access(copyDir);
+    await access(toDir);
   } catch (error) {
     if (error.code == 'ENOENT') {
       try {
-        await mkdir(copyDir);
+        await mkdir(toDir);
       } catch (error) {
         console.log(error, 'cant create');
       }
     }
   }
   try {
-    const filesInDir = await readdir(dir, { withFileTypes: true });
+    const filesInDir = await readdir(fromDir, { withFileTypes: true });
 
     filesInDir.forEach(async (x) => {
       if (x.isFile()) {
-        await copyFile(path.join(dir, x.name), path.join(copyDir, x.name));
+        await copyFile(path.join(fromDir, x.name), path.join(toDir, x.name));
       }
     });
   } catch (err) {
@@ -29,5 +29,5 @@ async function copyFiles() {
   }
 }
 
-copyFiles();
+copyFiles(dir,copyDir);
 
