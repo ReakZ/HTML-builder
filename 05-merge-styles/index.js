@@ -2,9 +2,10 @@ const { writeFile } = require('fs');
 const { readdir, readFile, appendFile } = require('fs/promises');
 const path = require('path');
 
-async function packStyles() {
-  const stylesPath = path.join(__dirname, 'styles');
-  const pathToBundleFile = path.join(__dirname, 'project-dist', 'bundle.css');
+const stylesPath = path.join(__dirname, 'styles');
+const pathToBundleFile = path.join(__dirname, 'project-dist', 'bundle.css');
+async function packStyles(stylesPath,pathToBundleFile) {
+
   writeFile(pathToBundleFile, '', (err) => {
     if (err) throw err;
   });
@@ -46,6 +47,6 @@ async function packStyles() {
   }
 }
 
-packStyles();
+packStyles(stylesPath,pathToBundleFile);
 
 
