@@ -23,6 +23,9 @@ async function copyFiles(fromDir,toDir) {
       if (x.isFile()) {
         await copyFile(path.join(fromDir, x.name), path.join(toDir, x.name));
       }
+      if(x.isDirectory()){
+        await copyFiles(path.join(fromDir, x.name), path.join(toDir, x.name));
+      }
     });
   } catch (err) {
     console.log(err);
