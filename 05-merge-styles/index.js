@@ -25,8 +25,9 @@ async function packStyles(stylesPath, pathToBundleFile) {
 
     const bufferData = await Promise.all(stylesArray);
     let totalStyle = bufferData.map((buff) => buff.toString());
-
-    totalStyle.forEach((x) => addToBundle(x));
+    let ccsData = '';
+    totalStyle.forEach((x) => (ccsData += x));
+    await addToBundle(ccsData);
   } catch (error) {
     console.log(error);
   }
